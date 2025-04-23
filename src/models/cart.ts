@@ -1,3 +1,4 @@
+import { Discount } from './discount';
 import { Item } from './item';
 
 export interface CartItem extends Item {
@@ -9,8 +10,9 @@ export interface Cart {
   userId: number | null;
   items: CartItem[];
   total: number;
+  availableDiscountCodes?: Discount[];
   discountCodeUsed?: string;
-  discountedTotal?: number;
+  discountAmount?: number;
   grandTotal: number;
 }
 
@@ -19,16 +21,8 @@ export let cart: Cart = {
   items: [],
   total: 0,
   discountCodeUsed: undefined,
-  discountedTotal: undefined,
+  discountAmount: undefined,
   grandTotal: 0,
 };
 
-export interface Order {
-  orderId: string;
-  userId: string;
-  items: CartItem[];
-  total: number;
-  discountCodeUsed?: string;
-  discountedTotal?: number;
-  grandTotal: number;
-}
+export let carts: Cart[] = [];

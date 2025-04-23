@@ -1,10 +1,13 @@
 import { Router } from 'express';
-import { addItemToCart, createCart } from '../controllers/cartController';
+import {
+  addItemToCart,
+  removeItemFromCart,
+} from '../controllers/cartController';
 
 const router = Router();
 
 // Route to create a cart
-router.post('/create', createCart);
-router.post('/add-item', addItemToCart);
+router.post('/add', addItemToCart);
+router.post('/remove', removeItemFromCart);
 
 export default router;
