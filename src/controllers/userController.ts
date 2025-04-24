@@ -1,23 +1,23 @@
 import { Request, Response, NextFunction } from 'express';
-import orderService from '../services/orderService';
+import userService from '../services/userService';
 
-export const placeOrder = async (
+export const login = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    const { userId } = req.body;
-    if (!userId) {
+    const { username } = req.body;
+    if (!username) {
       res.status(400).json({ message: 'Missing required fields' });
       return;
     }
-    if (typeof userId !== 'number') {
+    if (typeof username !== 'string') {
       res.status(400).json({ message: 'Invalid input data' });
       return;
     }
-    const order = orderService.placeOrder(userId);
-    res.status(200).json(order);
+    const user = userService.login(username);
+    res.status(201).json(user);
   } catch (error) {
     next(error);
   }

@@ -1,11 +1,11 @@
 import { HttpError } from '../libs/httpError';
-import { errorHandler } from '../middlewares/errorHandler';
+import { errorHandler } from '../libs/errorHandler';
 import { Cart, carts } from '../models/cart';
 import { items } from '../models/item';
 import discountService from './discountService';
 
 const createCart = (userId: number): Cart => {
-  const discountCode = discountService.createDiscountCode(userId);
+  const discountCode = discountService.createDiscountCodeForUser(userId);
   // Check if the cart already exists for the user
   const existingCart = getCartByUserId(userId);
   if (existingCart) {
@@ -54,7 +54,7 @@ const addItemToCart = (
   }
 
   // show discount code if available
-  const discountCode = discountService.createDiscountCode(userId);
+  const discountCode = discountService.createDiscountCodeForUser(userId);
   userCart.availableDiscountCodes = discountCode ? [discountCode] : undefined;
 
   // Check if item already exists in cart

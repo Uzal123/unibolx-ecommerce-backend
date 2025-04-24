@@ -5,7 +5,7 @@ import { orders } from '../models/order';
 import cartService from './cartService';
 import config from '../config/config';
 
-const createDiscountCode = (userId: number): Discount | undefined => {
+const createDiscountCodeForUser = (userId: number): Discount | undefined => {
   const userOrders = orders.filter((order) => order.userId === userId);
   if (
     userOrders.length % config.discountFrequency !== 0 ||
@@ -16,6 +16,15 @@ const createDiscountCode = (userId: number): Discount | undefined => {
   const discountCode = {
     code: `DISCOUNT-${userId}-${Date.now()}`,
     percentage: 10,
+  };
+  discountCodes.push(discountCode);
+  return discountCode;
+};
+
+const createDiscountCode = (percentage: number): Discount => {
+  const discountCode = {
+    code: `DISCOUNT-${Date.now()}`,
+    percentage,
   };
   discountCodes.push(discountCode);
   return discountCode;
@@ -52,7 +61,7 @@ const applyDiscountCode = (userId: number, discountCode: string): Cart => {
   return userCart;
 };
 
-const removeDiscountCode = (userId: number): Cart => {
+const removeDiscountCode = (userId: number, discountCode: string): Cart => {
   // Find the user's cart
   const userCart = cartService.getCartByUserId(userId);
   if (!userCart) {
@@ -64,14 +73,32 @@ const removeDiscountCode = (userId: number): Cart => {
   }
   // Remove the discount code from the cart
   userCart.discountCodeUsed = undefined;
+  userCart.availableDiscountCodes = [{ code: discountCode, percentage: 10 }];
   userCart.discountAmount = undefined;
   userCart.grandTotal = userCart.total;
+  discountCodes.push({
+    code: discountCode,
+    percentage: 10,
+  });
+  usedDiscountCodes.splice(
+    usedDiscountCodes.indexOf({
+      code: discountCode,
+      percentage: 10,
+    }),
+    1,
+  );
   return userCart;
 };
 
+const getDiscountCodes = (): Discount[] => {
+  return discountCodes;
+};
+
 const discountService = {
+  createDiscountCodeForUser,
   createDiscountCode,
   applyDiscountCode,
   removeDiscountCode,
+  getDiscountCodes,
 };
 export default discountService;

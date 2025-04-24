@@ -10,4 +10,15 @@ export interface Order {
   grandTotal: number;
 }
 
+export interface Insights {
+  totalOrders: number;
+  totalRevenue: number;
+  totalCarts: number;
+  totalItems: number;
+  averageOrderValue: number;
+  averageItemsPerCart: number;
+  totalDiscountAmount: number;
+  totalDiscountCodesUsed: number;
+}
+
 export let orders: Order[] = [];

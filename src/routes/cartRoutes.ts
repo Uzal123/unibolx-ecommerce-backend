@@ -1,12 +1,13 @@
 import { Router } from 'express';
 import {
   addItemToCart,
+  getCartByUserId,
   removeItemFromCart,
 } from '../controllers/cartController';
 
 const router = Router();
 
-// Route to create a cart
+router.get('/:userId', getCartByUserId);
 router.post('/add', addItemToCart);
 router.post('/remove', removeItemFromCart);
 
