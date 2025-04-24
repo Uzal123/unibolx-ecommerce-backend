@@ -25,8 +25,8 @@ This is a backend application for an ecommerce platform built using Node.js, Exp
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/ecommerce-backend.git
-cd ecommerce-backend
+git clone https://github.com/Uzal123/unibolx-ecommerce-backend.git
+cd unibolx-ecommerce-backend
 ```
 
 ### 2. Install Dependencies
@@ -125,9 +125,7 @@ This will run all the unit tests in the project and ensure that everything is wo
   config.ts         # Configuration file
 /tests
   /controllers      # Test files for controllers
-  /services         # Test files for services
-  /libs             # Test files for libraries
-  config.test.ts    # Test file for configuration
+
 ```
 
 ## Unit Testing
@@ -142,6 +140,3 @@ To add more tests:
 
 Feel free to fork this repository and submit issues and pull requests.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
